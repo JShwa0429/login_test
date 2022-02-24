@@ -3,6 +3,7 @@ import Google from "../Google";
 import styled from "styled-components";
 import { ReactComponent as Close } from "../assets/close.svg";
 import Facebook from "../Facebook";
+import { Link } from "react-router-dom";
 const Login = () => {
     return (
         <Modal>
@@ -14,18 +15,17 @@ const Login = () => {
                     </button>
                 </CloseSpan>
                 <h2>로고</h2>
-                <Form>
+                <Form onSubmit={() => console.log("로그인")}>
                     <input type="text" placeholder="이메일" />
                     <input type="password" placeholder="비밀번호" />
+                    <LoginButton type="submit">로그인</LoginButton>
                 </Form>
-                <LoginButton>버튼</LoginButton>
                 <span>
-                    <a>아이디 찾기 | 비밀번호 찾기</a>
+                    <Link to="password">비밀번호 찾기</Link>
+                    <span className="separator"></span>
+                    <Link to="account">회원가입</Link>
                 </span>
-                <span>
-                    <a>회원가입</a>
-                </span>
-                <span>간편 로그인</span>
+                <span className="socialLogin">간편 로그인</span>
                 <LogoButtonDiv>
                     <Kakao />
                     <Google />
@@ -74,7 +74,43 @@ const Article = styled.article`
         width: 0;
         height: 10px;
     }
+
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: 14px;
+        line-height: 1.38;
+        color: #61656b;
+
+        border-bottom: 1px solid #858a8d;
+    }
+
+    .socialLogin {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 12px;
+        margin: 8px 0px;
+    }
+    .socialLogin::before,
+    .socialLogin::after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(0, 0, 0, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px 5px;
+        width: 120px;
+    }
+
+    .separator::after {
+        content: " | ";
+        color: rgba(0, 0, 0, 0.35);
+    }
 `;
+
 const Form = styled.div`
     margin-top: 0em;
     font-size: 1rem;

@@ -42,6 +42,7 @@ const Kakao = () => {
 
     return (
         <KakaoLogin
+            
             token={`${process.env.REACT_APP_KAKAO_APP_KEY}`}
             onSuccess={(res) => {
                 console.log(res);
@@ -69,7 +70,7 @@ const Kakao = () => {
 
 export default Kakao;
 
-const KaKaoButton = styled.div`
+const KaKaoButton = styled.button`
     width: 44px;
     height: 44px;
     display: flex;

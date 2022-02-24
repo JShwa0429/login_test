@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GoogleLogin } from "react-google-login";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { ReactComponent as GoogleLogo } from "./assets/google.svg";
 
 import styled from "styled-components";
@@ -13,27 +13,28 @@ const Google = () => {
         setUserObj({ ...userObj, email: res.profileObj.email, name: res.profileObj.name });
     };
 
-    useEffect(() => {
-        console.log(userObj);
-    }, [userObj]);
+    const handleLogout = () => {
+        localStorage.removeItem("loginData");
+    };
 
     useEffect(() => {
-        return () => {};
-    }, []);
+        if (userObj.name) console.log(userObj);
+    }, [userObj]);
 
     return (
         <div>
             <GoogleLogin
                 clientId={googleClientId}
-                onSuccess={(res) => onLoginSuccess(res)}
+                onSuccess={(res) => console.log(res)}
                 onFailure={(result) => console.log(result)}
+                cookiePolicy={"single_host_origin"}
                 render={(renderProps) => (
                     <GoogleButton onClick={renderProps.onClick}>
                         <GoogleLogo width="18px" height="17" />
                     </GoogleButton>
                 )}
-                buttonText="Login"
             />
+            <GoogleLogout clientId={googleClientId} />
         </div>
     );
 };
